@@ -68,6 +68,16 @@ open class YTSwiftyPlayer: WKWebView {
         config.allowsPictureInPictureMediaPlayback = true
         return config
     }
+
+    // Remove message handler to prevent handlers are leaked
+    // https://stackoverflow.com/a/32443423/11344361
+    deinit {
+        callbackHandlers.forEach {
+            YTSwiftyPlayer.defaultConfiguration
+                .userContentController
+                .removeScriptMessageHandler(forName: $0.rawValue)
+        }
+    }
     
     public init(frame: CGRect = .zero, playerVars: [String: AnyObject]) {
         let config = YTSwiftyPlayer.defaultConfiguration
