@@ -61,6 +61,10 @@ open class YTSwiftyPlayer: WKWebView {
         .onUpdateCurrentTime
     ]
     
+    open override var safeAreaInsets: UIEdgeInsets {
+        return .zero
+    }
+    
     static private var defaultConfiguration: WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
         config.allowsAirPlayForMediaPlayback = true
